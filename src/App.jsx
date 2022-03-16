@@ -43,6 +43,14 @@ function App() {
     }
   };
 
+  //************************************************************************************************ */
+  //deleteIssue clicking delete icon
+  const deleteIssue = (id) => {
+    const issuesAfterDelete = issues.filter((issue) => issue.id !== id);
+    setIssues(issuesAfterDelete);
+    console.log(id);
+  };
+  //********
   //********for clicking 'complete icon'********
   const completeIssue = (id) => {
     //find issue based on  ID and modify that
@@ -70,6 +78,7 @@ function App() {
         progressCount={progressCount}
         completedCount={completedCount}
         completeIssue={completeIssue}
+        deleteIssue={deleteIssue}
       />
     </div>
   );

@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaEdit, FaTrashAlt, FaCheckSquare } from "react-icons/fa";
-import { Badge, ProgressBar } from "react-bootstrap";
+import { Badge, ProgressBar, Modal, Button } from "react-bootstrap";
 
-const Issue = ({ issue, completeIssue }) => {
+const Issue = ({ issue, completeIssue, deleteIssue }) => {
+  const [show, setShow] = useState(false);
+  const handleClose = (evt) => {
+    //if user click delete btn
+    console.log(evt.target.dataset.action);
+    if (evt.target.dataset.action === "delete") {
+      deleteIssue(id);
+    }
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
   const {
     id,
     title,
@@ -30,40 +40,60 @@ const Issue = ({ issue, completeIssue }) => {
     ) : (
       status
     );
+  //modal
+  const modal = (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Body>Are you sure you want to Delete</Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="danger" data-Action="delete" onClick={handleClose}>
+          Delete
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+
+  ////
+  ///
 
   return (
-    <tr key={id}>
-      <td className="text-center">{id}</td>
-      <td className="text-center">{title}</td>
-      <td className="text-center">
-        <Badge bg={`${lowClass}${highClass}${mediumClass}`} pill>
-          {" "}
-          {priority}
-        </Badge>
-      </td>
-      <td className="text-center">{completedStatus}</td>
-      <td className="text-center">{assingedTo}</td>
-      <td className="text-center">{endDate}</td>
+    <>
+      {modal}
+      <tr key={id}>
+        <td className="text-center">{id}</td>
+        <td className="text-center">{title}</td>
+        <td className="text-center">
+          <Badge bg={`${lowClass}${highClass}${mediumClass}`} pill>
+            {" "}
+            {priority}
+          </Badge>
+        </td>
+        <td className="text-center">{completedStatus}</td>
+        <td className="text-center">{assingedTo}</td>
+        <td className="text-center">{endDate}</td>
 
-      <td className="text-center">
-        <ProgressBar
-          variant={`${lowPercentaceClass}${highPercentaceClass}${mediumPercentaceClass}`}
-          label={completedPercentage}
-          now={completedPercentage}
-          striped
-          animated
-        />{" "}
-      </td>
-      <td className="text-center">
-        <FaEdit className="text-info me-3" />
-        <FaCheckSquare
-          className="text-success me-3"
-          onClick={() => completeIssue(id)}
-        />
-        <FaTrashAlt className="text-danger me-3" />
-      </td>
-    </tr>
+        <td className="text-center">
+          <ProgressBar
+            variant={`${lowPercentaceClass}${highPercentaceClass}${mediumPercentaceClass}`}
+            label={completedPercentage}
+            now={completedPercentage}
+            striped
+            animated
+          />{" "}
+        </td>
+        <td className="text-center">
+          <FaEdit className="text-info me-3" />
+          <FaCheckSquare
+            className="text-success me-3"
+            onClick={() => completeIssue(id)}
+          />
+          <FaTrashAlt className="text-danger me-3" onClick={handleShow} />
+        </td>
+      </tr>
+    </>
   );
 };
 export default Issue;
-//31.minutes
+//
