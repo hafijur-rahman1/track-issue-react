@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Gothic&family=Lobster&family=PT+Serif:ital@0;1&family=Recursive:wght@500;600;700&display=swap");
+
+body {
+  /* font-family: "PT Serif", serif !important; */
+  font-family: "League Gothic", sans-serif !important;
+  font-size: 21px !important;
+}
+.issue-brand {
+  font-family: "Lobster", cursive !important;
+  font-size: 2rem !important;
+}
